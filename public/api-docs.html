@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="th">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>เอกสาร API | Discs for Sale</title>
+<style>body{font-family:Tahoma,Arial,sans-serif;background:#f4f6fa;color:#17263f;line-height:1.9;margin:0}main{max-width:900px;margin:45px auto;padding:32px;background:white;border-radius:18px}h1{font-size:28px}h2{margin-top:30px}a{color:#2459ed}code,pre{background:#edf2fc;border-radius:7px}code{padding:3px 6px}pre{padding:18px;overflow:auto;line-height:1.65}table{border-collapse:collapse;width:100%}th,td{text-align:left;border-bottom:1px solid #dfe6f1;padding:10px;font-size:13px}@media(max-width:600px){main{margin:15px;padding:20px}h1{font-size:23px}}</style></head>
+<body><main><a href="/about">← กลับหน้า About</a><h1>Discs for Sale — Mock REST API</h1><p>API ของโครงงาน เปิดด้วย JSON Server 0.17.4 จากไฟล์ <code>db.json</code> จำนวน 20 เกม ราคาเป็นข้อมูลจำลอง</p>
+<p>Base URL ในเครื่อง: <code>http://127.0.0.1:3001</code><br>ฝั่งเว็บผ่าน Vite proxy: <code>/api</code></p>
+<h2>Endpoints</h2><table><tr><th>Method</th><th>Path</th><th>ผลลัพธ์</th></tr><tr><td>GET</td><td><a href="/api/games">/games</a></td><td>Game[] รายการเกมทั้งหมด, HTTP 200</td></tr><tr><td>GET</td><td><a href="/api/games/1">/games/1</a></td><td>Game รายละเอียดตาม ID, HTTP 200</td></tr><tr><td>GET</td><td>/games/:id</td><td>หากไม่พบ ID ตอบ HTTP 404</td></tr></table>
+<p>API เปิดแบบ read-only ไม่มี authentication สำหรับการสาธิตในเครื่อง Wishlist และ Compare เป็นข้อมูลฝั่งผู้ใช้ เก็บเฉพาะ ID ใน Zustand + LocalStorage</p>
+<h2>ตัวอย่าง Game</h2><pre>{
+  "id": "1",
+  "title": "Marvel’s Spider-Man 2",
+  "price": 1990,
+  "cover": "/images/game-01.jpg",
+  "genre": "Action / Adventure",
+  "players": "1 คน",
+  "platform": "PS5",
+  "format": "แผ่นเกม",
+  "releaseDate": "2023-10-20",
+  "publisher": "Sony Interactive Entertainment",
+  "featured": true,
+  "description": "เรื่องย่อเกม..."
+}</pre>
+<p><code>price</code> เป็น number, <code>featured</code> เป็น boolean และฟิลด์อื่นเป็น string เส้นทางรูปอ้างอิงจากเว็บ Vite ใน public/images ไม่ใช่จาก JSON Server</p>
+<h2>การใช้งาน</h2><pre>fetch('/api/games')
+fetch('/api/games/1')</pre><p>ในแอปจริงเรียกผ่าน TanStack Query โดย staleTime 5 นาที เพื่อใช้แคชข้อมูลเดิมร่วมกัน ไม่เก็บข้อมูลเกมทั้งหมดซ้ำใน Zustand</p>
+<p>อ่านเอกสารเครื่องมือ: <a href="https://github.com/typicode/json-server/tree/v0.17.4" target="_blank" rel="noreferrer">JSON Server 0.17.4</a></p></main></body></html>
